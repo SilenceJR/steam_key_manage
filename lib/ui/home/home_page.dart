@@ -3,7 +3,7 @@ import 'package:steam_key_manage/utils/data_parser.dart';
 
 import '../../db/steam_key_db.dart';
 import '../../http/http_client.dart';
-import '../../model/steam_key_model.dart';
+import '../../model/steam_game_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<SteamKeyModel> data = [];
+  List<SteamGameModel> data = [];
   late SteamKeyDb db;
   late Client _client;
 

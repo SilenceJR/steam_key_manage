@@ -8,18 +8,15 @@ part of 'steam_key_model.dart';
 
 SteamKeyModel _$SteamKeyModelFromJson(Map<String, dynamic> json) =>
     SteamKeyModel(
+      id: json['id'] as int?,
       appId: json['appId'] as int,
-      name: json['name'] as String,
-      chineseName: json['chineseName'] as String,
-      link: json['link'] as String,
-      image: json['image'] as String,
-    );
+      key: json['key'] as String,
+    )..valid = SteamKeyModel._fromValid(json['valid'] as int);
 
 Map<String, dynamic> _$SteamKeyModelToJson(SteamKeyModel instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'appId': instance.appId,
-      'name': instance.name,
-      'chineseName': instance.chineseName,
-      'link': instance.link,
-      'image': instance.image,
+      'key': instance.key,
+      'valid': SteamKeyModel._toValid(instance.valid),
     };

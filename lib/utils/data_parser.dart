@@ -1,8 +1,8 @@
 import 'package:html/parser.dart' show parse;
-import 'package:steam_key_manage/model/steam_key_model.dart';
+import 'package:steam_key_manage/model/steam_game_model.dart';
 
 class DataParser {
-  Stream<SteamKeyModel> steamSearch(dynamic data) async* {
+  Stream<SteamGameModel> steamSearch(dynamic data) async* {
     var parseHTML = parse(data);
     var searchRule = parseHTML.querySelector('div#search_result_container');
     var gameList = searchRule?.querySelectorAll('a');
@@ -13,6 +13,7 @@ class DataParser {
       var appId = element.attributes['data-ds-appid'];
       var bundleId = element.attributes['data-ds-bundleid'];
       data['id'] = bundleId ?? appId;
+
       data['link'] = 'https://store.steampowered.com/app/${data['id']}';
       data['img'] = element.querySelector('img')?.attributes['src'];
       data['title'] = element.querySelector('.title')?.text;
@@ -38,12 +39,16 @@ class DataParser {
             .querySelector('.col.search_discount.responsive_secondrow')
             ?.text;
       }
-      yield SteamKeyModel(
-          appId: int.parse(data['id']),
-          name: data['title'],
-          chineseName: data['title'],
-          link: data['link'],
-          image: data['img']);
+      if (null == data['id']) {
+        continue;
+      } else {
+        yield SteamGameModel(
+            appId: int.parse(data['id']),
+            name: data['title'],
+            chineseName: data['title'],
+            link: data['link'],
+            image: data['img']);
+      }
     }
   }
 }

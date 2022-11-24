@@ -2,7 +2,7 @@ import 'package:html/parser.dart' show parse;
 import 'package:steam_key_manage/db/steam_key_db.dart';
 import 'package:steam_key_manage/http/http_client.dart';
 
-import 'model/steam_key_model.dart';
+import 'model/steam_game_model.dart';
 
 main() async {
   var client = Client()..init();
@@ -47,7 +47,7 @@ main() async {
           .querySelector('.col.search_discount.responsive_secondrow')
           ?.text;
     }
-    var steamKeyModel = SteamKeyModel(
+    var steamKeyModel = SteamGameModel(
         appId: data['id'],
         name: data['title'],
         chineseName: data['title'],
