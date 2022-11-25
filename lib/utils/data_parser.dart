@@ -1,6 +1,8 @@
 import 'package:html/parser.dart' show parse;
 import 'package:steam_key_manage/model/steam_game_model.dart';
 
+import '../model/humble_order_key_model.dart';
+
 class DataParser {
   Stream<SteamGameModel> steamSearch(dynamic data) async* {
     var parseHTML = parse(data);
@@ -45,10 +47,32 @@ class DataParser {
         yield SteamGameModel(
             appId: int.parse(data['id']),
             name: data['title'],
-            chineseName: data['title'],
             link: data['link'],
             image: data['img']);
       }
     }
+  }
+
+  Future<List<HumbleOrderKeyModel>> findOrderKey(
+      {required dynamic data, required String user}) async {
+    var parseHTML = parse(data);
+    var row = parseHTML.querySelectorAll('div.row.js-row');
+
+    List<HumbleOrderKeyModel> result = [];
+
+    for (var element in row) {
+      var orderKey = element.attributes['data-hb-gamekey'];
+      var productName = element.querySelector('.product-name')?.text;
+      var orderPlaced = element.querySelector('.order-placed')?.text;
+
+      if (null != orderKey && null != productName && null != orderPlaced) {
+        result.add(HumbleOrderKeyModel(
+            orderKey: orderKey,
+            productName: productName,
+            orderPlaced: orderPlaced,
+            user: user));
+      }
+    }
+    return result;
   }
 }

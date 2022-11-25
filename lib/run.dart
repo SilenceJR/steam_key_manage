@@ -50,7 +50,6 @@ main() async {
     var steamKeyModel = SteamGameModel(
         appId: data['id'],
         name: data['title'],
-        chineseName: data['title'],
         link: data['link'],
         image: data['img']);
     db.insert(steamKeyModel);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:steam_key_manage/ui/home/home_page.dart';
+import 'package:steam_key_manage/ui/humble/humble_page.dart';
 
 void main() {
   sqfliteFfiInit();
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: const ColorScheme.dark(),
       ),
-      home: const HomePage(),
+      // home: const HomePage(),
+      home: const HumblePage(),
     );
   }
 }
